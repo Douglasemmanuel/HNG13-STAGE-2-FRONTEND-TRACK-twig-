@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+
+  <!-- Bootstrap 5 CSS (you can use 4 if preferred) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <style>
+    .image-style {
+      height: 32px;
+      margin-right: 8px;
+    }
+    .hover-bg:hover {
+      background-color: #f8f9fa;
+    }
+    .login-btn, .get-started-btn {
+      border-radius: 5px;
+    }
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-card {
+      margin-top: 5rem;
+      padding: 2rem;
+      border-radius: 12px;
+    
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom py-3 fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      <!-- LOGO -->
+      <a href="index.html" class="navbar-brand d-flex align-items-center" style="text-decoration: none;">
+        <img src="images/logo2.jpeg" alt="Ticket Icon" class="image-style" />
+        <span class="fw-medium text-dark">TicketHub</span>
+      </a>
+
+      <!-- TOGGLE & LINKS -->
+      <button class="navbar-toggler" type="button" id="menuToggle" aria-label="Toggle navigation">
+        <span id="menuIcon" style="font-size: 1.5rem;">☰</span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Events</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Orders</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">More</a></li>
+        </ul>
+      </div>
+
+      <!-- DESKTOP BUTTONS -->
+      <div class="d-none d-md-flex align-items-center gap-2">
+        <button class="btn btn-outline-primary px-4 py-2 fw-semibold" onclick="navigateTo('login.html')">Login</button>
+        <button class="btn btn-primary px-4 py-2 fw-semibold" onclick="navigateTo('register.html')">Get Started</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="d-md-none bg-white border-top py-3 px-3 collapse w-100 position-fixed start-0" style="top: 70px; z-index: 1050;">
+    <ul class="nav flex-column gap-2 mb-3">
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Home</a></li>
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Events</a></li>
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Orders</a></li>
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">More</a></li>
+    </ul>
+    <div class="d-flex flex-column gap-2">
+      <button class="btn btn-outline-primary fw-semibold w-100">Login</button>
+      <button class="btn btn-primary fw-semibold w-100">Get Started</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+ <main class="pt-5 mt-5"> <!-- padding-top for fixed navbar -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+        <div class="login-card">
+          <h3 class="text-center mb-4">Login</h3>
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input id="email" type="email" class="form-control" placeholder="Enter email" />
+              <small id="emailError" class="text-danger d-none"></small>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input id="password" type="password" class="form-control" placeholder="Enter password" />
+              <small id="passwordError" class="text-danger d-none"></small>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+          </form>
+          <p class="text-center mt-3">
+            Don't have an account?
+            <a href="register.html" class="fw-bold text-decoration-none">Sign Up</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+  <!-- FOOTER -->
+  <footer class="bg-light py-4 mt-5 text-center border-top">
+    <div class="container text-center">
+      <!-- Links Row -->
+      <div class="row justify-content-center mb-4 g-3">
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">About Us</a></div>
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">Contact</a></div>
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></div>
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">Terms of Service</a></div>
+      </div>
+      <!-- Social Icons -->
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <a href="#" class="text-secondary fs-4"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="text-secondary fs-4"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-secondary fs-4"><i class="bi bi-instagram"></i></a>
+      </div>
+      <!-- Copyright -->
+      <p class="mb-0 mt-4 text-muted">© <span id="year"></span> TicketHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const menuToggle = document.getElementById('menuToggle');
+    const menuIcon = document.getElementById('menuIcon');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    let isOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      isOpen = !isOpen;
+      mobileMenu.classList.toggle('show', isOpen);
+      menuIcon.textContent = isOpen ? '✕' : '☰';
+    });
+
+    function navigateTo(route) {
+      window.location.href = route;
+    }
+
+    window.addEventListener('resize', () => {
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        isOpen = false;
+        mobileMenu.classList.remove('show');
+        menuIcon.textContent = '☰';
+      }
+    });
+</script>
+<script>
+  // Example: create a dummy user for testing
+  if (!localStorage.getItem('users')) {
+    const dummyUsers = [
+      { firstName: 'John', lastName: 'Doe', email: 'john@example.com', password: '123456' }
+    ];
+    localStorage.setItem('users', JSON.stringify(dummyUsers));
+  }
+
+  const loginForm = document.getElementById('loginForm');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Clear previous errors
+    emailError.textContent = '';
+    emailError.classList.add('d-none');
+    passwordError.textContent = '';
+    passwordError.classList.add('d-none');
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    let hasError = false;
+
+    // Validate email
+    if (!email) {
+      emailError.textContent = 'Email is required';
+      emailError.classList.remove('d-none');
+      hasError = true;
+    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      emailError.textContent = 'Invalid email format';
+      emailError.classList.remove('d-none');
+      hasError = true;
+    }
+
+    // Validate password
+    if (!password) {
+      passwordError.textContent = 'Password is required';
+      passwordError.classList.remove('d-none');
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    // --- Login logic ---
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === email);
+
+    if (!user) {
+      emailError.textContent = 'User not found!';
+      emailError.classList.remove('d-none');
+      return;
+    }
+
+    if (user.password !== password) {
+      passwordError.textContent = 'Incorrect password!';
+      passwordError.classList.remove('d-none');
+      return;
+    }
+
+    // Login successful
+    localStorage.setItem('ticketapp_session', JSON.stringify(user));
+    alert('Login successful!');
+    window.location.href = '/dashboard.html'; // Redirect after login
+  });
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TicketHub</title>
+
+  <!-- Bootstrap 5 CSS (you can use 4 if preferred) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <style>
+    .image-style {
+      height: 32px;
+      margin-right: 8px;
+    }
+    .hover-bg:hover {
+      background-color: #f8f9fa;
+    }
+    .login-btn, .get-started-btn {
+      border-radius: 5px;
+    }
+       .main-wrapper {
+      max-width: 1440px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      background-color: #0d6efd;
+      min-height: 550px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    /* Wavy SVG Background */
+    .wave-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      overflow: hidden;
+      transform: translateY(1px);
+    }
+    .wave-bg svg {
+      display: block;
+      width: 100%;
+      height: 100px;
+    }
+
+    /* Decorative Circle */
+    .decorative-circle {
+      position: absolute;
+      top: 10%;
+      right: 15%;
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      filter: blur(2px);
+    }
+
+    /* Hero Content */
+    .hero-content img {
+      width: 60px;
+      height: auto;
+      border-radius: 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .hero-content img:hover {
+      transform: scale(1.05);
+    }
+
+    .custom-btn,
+    .custom-outline-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .custom-btn {
+      background-color: white;
+      color: #0d6efd;
+      border: 2px solid #0d6efd;
+    }
+    .custom-btn:hover {
+      background-color: #0d6efd;
+      color: white;
+      border-color: #0d6efd;
+    }
+
+    .custom-outline-btn {
+      border: 2px solid white;
+      color: white;
+    }
+    .custom-outline-btn:hover {
+      background-color: white;
+      color: #0d6efd;
+      border-color: white;
+    }
+
+    /* Feature Boxes */
+    .features-section {
+      background: #f9fafc;
+    }
+    .feature-card {
+      border-radius: 16px;
+      background: white;
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Footer */
+    footer {
+      background: #f1f3f6;
+      border-top: 1px solid #e2e2e2;
+      padding: 2rem 0;
+    }
+
+    /* Decorative Circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: 1;
+    }
+    .circle-1 {
+      width: 150px;
+      height: 150px;
+      top: 50px;
+      left: 20%;
+    }
+    .circle-2 {
+      width: 200px;
+      height: 200px;
+      bottom: 50px;
+      right: 10%;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .decorative-circle {
+        width: 80px;
+        height: 80px;
+        top: 5%;
+        right: 10%;
+      }
+      .hero-section {
+        min-height: 420px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom py-3 fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <!-- LOGO -->
+      <a href="index.html" class="navbar-brand d-flex align-items-center" style="text-decoration: none;">
+        <img src="images/logo2.jpeg" alt="Ticket Icon" class="image-style" />
+        <span class="fw-medium text-dark">TicketHub</span>
+      </a>
+
+      <!-- MOBILE TOGGLE BUTTON -->
+      <button class="navbar-toggler" type="button" id="menuToggle" aria-label="Toggle navigation">
+        <span id="menuIcon" style="font-size: 1.5rem;">☰</span>
+      </button>
+
+      <!-- NAV LINKS -->
+      <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Events</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Orders</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">More</a></li>
+        </ul>
+      </div>
+
+      <!-- DESKTOP BUTTONS -->
+      <div class="d-none d-md-flex align-items-center gap-2">
+        <button class="btn btn-outline-primary px-4 py-2 fw-semibold" onclick="navigateTo('login.html')">Login</button>
+        <button class="btn btn-primary px-4 py-2 fw-semibold" onclick="navigateTo('register.html')">Get Started</button>
+      </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+  <div 
+   id="mobileMenu"
+  class="d-md-none bg-white border-top py-3 px-3 collapse show w-100 position-fixed start-0"
+  style="top: 70px; z-index: 1050; left: 0; right: 0;"
+>
+  <ul class="nav flex-column gap-2 mb-3">
+ <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Home</a></li>
+<li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Events</a></li>
+<li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Orders</a></li>
+<li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">More</a></li>
+
+
+  </ul>
+
+  <div class="d-flex flex-column gap-2">
+    <button class="btn btn-outline-primary fw-semibold w-100" style="padding: 0.75rem 1rem;">Login</button>
+    <button class="btn btn-primary fw-semibold w-100" style="padding: 0.75rem 1rem;">Get Started</button>
+  </div>
+</div>
+
+
+  </nav>
+  <!-- main>
+  <div class="main-wrapper">
+
+    <!-- Hero Section -->
+    <section class="hero-section position-relative">
+      <!-- Wavy SVG Background -->
+      <div class="wave-bg">
+        <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path fill="#007bff" fill-opacity="1"
+            d="M0,224L48,197.3C96,171,192,117,288,112C384,107,480,149,576,176C672,203,768,213,864,213.3C960,213,1056,203,1152,181.3C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+          </path>
+        </svg>
+      </div>
+
+      <!-- Decorative Circle -->
+      <div class="decorative-circle"></div>
+
+      <!-- Hero Content -->
+      <div class="container hero-content position-relative z-2">
+        <div class="d-flex flex-column align-items-center justify-content-center">
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <img src="images/logo2.jpeg" alt="TicketHub Logo">
+            <h1 class="fw-bold display-4 mb-2">TicketHub</h1>
+          </div>
+          <p class="fs-5 mb-4 mt-4">
+            Track, prioritize, and complete your work effortlessly—turn chaos into clarity and make progress every step of the way.
+          </p>
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="login.html" class="btn custom-btn fw-semibold">Login</a>
+            <a href="register.html" class="btn custom-outline-btn fw-semibold">Get Started</a>
+          </div>
+        </div>
+
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+      </div>
+    </section>
+
+    <!-- Feature Boxes Section -->
+    <section class="features-section py-5">
+      <div class="container">
+        <div class="row g-4 justify-content-center align-items-stretch">
+
+          <div class="col-12 col-sm-6 col-md-4 d-flex">
+            <div class="feature-card text-center flex-fill">
+              <h5 class="fw-bold mb-2">Create Tickets</h5>
+              <p>Submit new tickets with validation and automatic tracking.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4 d-flex">
+            <div class="feature-card text-center flex-fill">
+              <h5 class="fw-bold mb-2">View and Manage</h5>
+              <p>See open, in-progress and closed tickets all in the dashboard.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4 d-flex">
+            <div class="feature-card text-center flex-fill">
+              <h5 class="fw-bold mb-2">Secure and Safe</h5>
+              <p>All your ticket data is safely stored.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!--Footer>
+  <footer class="bg-light py-4 mt-5 text-center border-top fixed-bottom">
+    <div class="container text-center">
+
+     
+      <div class="row justify-content-center mb-4 g-3">
+        <div class="col-6 col-md-auto">
+          <a href="#" class="text-secondary text-decoration-none">About Us</a>
+        </div>
+        <div class="col-6 col-md-auto">
+          <a href="#" class="text-secondary text-decoration-none">Contact</a>
+        </div>
+        <div class="col-6 col-md-auto">
+          <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
+        </div>
+        <div class="col-6 col-md-auto">
+          <a href="#" class="text-secondary text-decoration-none">Terms of Service</a>
+        </div>
+      </div>
+
+     
+     <div class="d-flex justify-content-center gap-3 mb-3">
+  <a href="#" class="text-secondary fs-4"><i class="bi bi-twitter"></i></a>
+  <a href="#" class="text-secondary fs-4"><i class="bi bi-facebook"></i></a>
+  <a href="#" class="text-secondary fs-4"><i class="bi bi-instagram"></i></a>
+</div>
+
+
+      <!-- Copyright -->
+      <p class="mb-0 mt-4 text-muted">
+        © <span id="year"></span> TicketHub. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const menuIcon = document.getElementById('menuIcon');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navbarMenu = document.getElementById('navbarMenu');
+
+    let isOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      isOpen = !isOpen;
+      mobileMenu.classList.toggle('show', isOpen);
+      menuIcon.textContent = isOpen ? '✕' : '☰';
+    });
+
+    function navigateTo(route) {
+      window.location.href = route;
+    }
+
+    // Handle window resizing
+    window.addEventListener('resize', () => {
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        isOpen = false;
+        mobileMenu.classList.remove('show');
+        menuIcon.textContent = '☰';
+      }
+    });
+  </script>
+
+ 
+</body>
+</html>

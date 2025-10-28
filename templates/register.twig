@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+
+  <!-- Bootstrap 5 CSS (you can use 4 if preferred) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <style>
+    .image-style {
+      height: 32px;
+      margin-right: 8px;
+    }
+    .hover-bg:hover {
+      background-color: #f8f9fa;
+    }
+    .login-btn, .get-started-btn {
+      border-radius: 5px;
+    }
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-card {
+      margin-top: 5rem;
+      padding: 2rem;
+      border-radius: 12px;
+    
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom py-3 fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+      <!-- LOGO -->
+      <a href="index.html" class="navbar-brand d-flex align-items-center" style="text-decoration: none;">
+        <img src="images/logo2.jpeg" alt="Ticket Icon" class="image-style" />
+        <span class="fw-medium text-dark">TicketHub</span>
+      </a>
+
+      <!-- TOGGLE & LINKS -->
+      <button class="navbar-toggler" type="button" id="menuToggle" aria-label="Toggle navigation">
+        <span id="menuIcon" style="font-size: 1.5rem;">☰</span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Events</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">Orders</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-dark px-3 py-2 rounded hover-bg">More</a></li>
+        </ul>
+      </div>
+
+      <!-- DESKTOP BUTTONS -->
+      <div class="d-none d-md-flex align-items-center gap-2">
+        <button class="btn btn-outline-primary px-4 py-2 fw-semibold" onclick="navigateTo('login.html')">Login</button>
+        <button class="btn btn-primary px-4 py-2 fw-semibold" onclick="navigateTo('register.html')">Get Started</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="d-md-none bg-white border-top py-3 px-3 collapse w-100 position-fixed start-0" style="top: 70px; z-index: 1050;">
+    <ul class="nav flex-column gap-2 mb-3">
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Home</a></li>
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Events</a></li>
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">Orders</a></li>
+      <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">More</a></li>
+    </ul>
+    <div class="d-flex flex-column gap-2">
+      <button class="btn btn-outline-primary fw-semibold w-100">Login</button>
+      <button class="btn btn-primary fw-semibold w-100">Get Started</button>
+    </div>
+  </div>
+
+ <!-- MAIN CONTENT -->
+  <main class="container" style="padding-top: 10rem;">
+    <h1 class="text-center mb-4">Get Started</h1>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+        <form id="signupForm">
+          <div class="row mb-3">
+            <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+              <label for="firstName" class="form-label">First Name</label>
+              <input id="firstName" type="text" class="form-control" placeholder="First Name" />
+              <small id="firstNameError" class="text-danger d-none"></small>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input id="lastName" type="text" class="form-control" placeholder="Last Name" />
+              <small id="lastNameError" class="text-danger d-none"></small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input id="email" type="email" class="form-control" placeholder="Enter email" />
+            <small id="emailError" class="text-danger d-none"></small>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" type="password" class="form-control" placeholder="Enter password" />
+            <small id="passwordError" class="text-danger d-none"></small>
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input id="confirmPassword" type="password" class="form-control" placeholder="Confirm password" />
+            <small id="confirmPasswordError" class="text-danger d-none"></small>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2">Get Started</button>
+        </form>
+
+        <p class="text-center mt-3">
+          Already have an account?
+          <a href="login.html" class="fw-bold text-decoration-none">Login</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-light py-4 mt-5 text-center border-top">
+    <div class="container text-center">
+      <!-- Links Row -->
+      <div class="row justify-content-center mb-4 g-3">
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">About Us</a></div>
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">Contact</a></div>
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></div>
+        <div class="col-6 col-md-auto"><a href="#" class="text-secondary text-decoration-none">Terms of Service</a></div>
+      </div>
+      <!-- Social Icons -->
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <a href="#" class="text-secondary fs-4"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="text-secondary fs-4"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-secondary fs-4"><i class="bi bi-instagram"></i></a>
+      </div>
+      <!-- Copyright -->
+      <p class="mb-0 mt-4 text-muted">© <span id="year"></span> TicketHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+ <script>
+    const signupForm = document.getElementById('signupForm');
+
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get input values
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Error elements
+      const errors = {
+        firstName: document.getElementById('firstNameError'),
+        lastName: document.getElementById('lastNameError'),
+        email: document.getElementById('emailError'),
+        password: document.getElementById('passwordError'),
+        confirmPassword: document.getElementById('confirmPasswordError')
+      };
+
+      // Clear previous errors
+      for (const key in errors) {
+        errors[key].textContent = '';
+        errors[key].classList.add('d-none');
+      }
+
+      let hasError = false;
+
+      // Validation
+      if (!firstName) {
+        errors.firstName.textContent = 'First Name is required';
+        errors.firstName.classList.remove('d-none');
+        hasError = true;
+      }
+
+      if (!lastName) {
+        errors.lastName.textContent = 'Last Name is required';
+        errors.lastName.classList.remove('d-none');
+        hasError = true;
+      }
+
+      if (!email) {
+        errors.email.textContent = 'Email is required';
+        errors.email.classList.remove('d-none');
+        hasError = true;
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        errors.email.textContent = 'Invalid email format';
+        errors.email.classList.remove('d-none');
+        hasError = true;
+      }
+
+      if (!password) {
+        errors.password.textContent = 'Password is required';
+        errors.password.classList.remove('d-none');
+        hasError = true;
+      } else if (password.length < 6) {
+        errors.password.textContent = 'Password is too short';
+        errors.password.classList.remove('d-none');
+        hasError = true;
+      }
+
+      if (password !== confirmPassword) {
+        errors.confirmPassword.textContent = 'Passwords do not match';
+        errors.confirmPassword.classList.remove('d-none');
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      // --- SIGNUP LOGIC DIRECTLY IN THE SCREEN ---
+      const existingUsers = localStorage.getItem('users');
+      const users = existingUsers ? JSON.parse(existingUsers) : [];
+
+      const userExists = users.some(user => user.email === email);
+      if (userExists) {
+        errors.email.textContent = 'Email already registered!';
+        errors.email.classList.remove('d-none');
+        Toastify({
+          text: "User with this Email exists",
+          duration: 5000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#dc3545"
+        }).showToast();
+        return;
+      }
+
+      // Save new user
+      const newUser = { firstName, lastName, email, password, confirmPassword };
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+
+      Toastify({
+        text: "Registration successful!",
+        duration: 5000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745"
+      }).showToast();
+
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+    });
+  </script>
+</body>
+
+</html>

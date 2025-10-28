@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Tickets</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .table-responsive {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .container-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .container-header button {
+      position: absolute;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Header -->
+    <div class="container-header">
+      <button id="backBtn" class="btn btn-primary btn-sm">Back</button>
+      <h2 class="mb-0">All Tickets</h2>
+    </div>
+
+    <!-- Ticket Table -->
+    <div id="ticketContainer" class="table-responsive text-center">
+      Loading tickets...
+    </div>
+  </div>
+
+  <script>
+    // Example tickets array (simulating store)
+    let tickets = [
+      { id: 1, title: 'Login Bug', description: 'Cannot login to dashboard', assignee: 'Alice', status: 'Open' },
+      { id: 2, title: 'UI Fix', description: 'Button overlap issue', assignee: 'Bob', status: 'In Progress' },
+      { id: 3, title: 'Resolved Ticket', description: 'Email not sending', assignee: 'Charlie', status: 'Resolved' },
+      { id: 4, title: 'Closed Ticket', description: 'Typo in footer', assignee: 'Alice', status: 'Closed' }
+    ];
+
+    const container = document.getElementById('ticketContainer');
+
+    // Render tickets table
+    function renderTickets() {
+      if (tickets.length === 0) {
+        container.innerHTML = '<p class="text-muted">No tickets available.</p>';
+        return;
+      }
+
+      const table = document.createElement('table');
+      table.className = 'table table-striped table-bordered table-hover';
+
+      table.innerHTML = `
+        <thead class="table-light">
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tickets.map(ticket => `
+            <tr>
+              <td>${ticket.id}</td>
+              <td>${ticket.title.length > 12 ? ticket.title.slice(0,12) + '...' : ticket.title}</td>
+              <td>${ticket.description.length > 12 ? ticket.description.slice(0,12) + '...' : ticket.description}</td>
+              <td>${ticket.assignee}</td>
+              <td>${ticket.status}</td>
+              <td><button class="btn btn-warning btn-sm" onclick="editTicket(${ticket.id})">Edit</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="deleteTicket(${ticket.id})">Delete</button></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+
+      container.innerHTML = '';
+      container.appendChild(table);
+    }
+
+    // Edit ticket function
+    function editTicket(id) {
+      // Navigate to edit page (simulated)
+      alert('Navigate to edit page for ticket ID: ' + id);
+      // window.location.href = `/edit-ticket/${id}.html`; // Uncomment if you have edit pages
+    }
+
+    // Delete ticket function
+    function deleteTicket(id) {
+      const confirmed = window.confirm('Are you sure you want to delete this ticket?');
+      if (!confirmed) return;
+
+      tickets = tickets.filter(ticket => ticket.id !== id);
+      renderTickets();
+      console.log('Deleted ticket with id:', id);
+    }
+
+    // Back button
+    document.getElementById('backBtn').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Initial render
+    renderTickets();
+  </script>
+</body>
+</html>
