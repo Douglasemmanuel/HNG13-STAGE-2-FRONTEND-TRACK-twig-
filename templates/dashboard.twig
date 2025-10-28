@@ -19,11 +19,15 @@
      .card-icon { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 12px; } 
      .cards-container { display: flex; gap: 20px; flex-wrap: wrap; }
       .card { background-color: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 1.5rem 12px; cursor: pointer; transition: 0.3s; width: 330px; } 
-      .card:hover { transform: translateY(-4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); } .card-title { margin-top: 1rem; font-size: 1.2rem; font-weight: 600; } 
+      .card:hover { transform: translateY(-4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); } 
+      .card-title { margin-top: 1rem; font-size: 1.2rem; font-weight: 600; } 
       .card-subtitle { margin: 4px 0; font-size: 1rem; color: #666; } 
-      .quick-cards-container { display: flex; gap: 20px; flex-wrap: wrap; } .quick-card { background-color: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; padding: 1.5rem 12px; cursor: pointer; transition: 0.3s; width: 330px; display: flex; align-items: center; gap: 1rem; } 
-      .quick-card:hover { transform: translateY(-4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); } .quick-card-icon { font-size: 2rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; } 
-      .quick-card-title { margin-top: 1rem; font-size: 1.2rem; font-weight: 600; } .quick-card-subtitle { margin: 4px 0; font-size: 1rem; color: #666; }
+      .quick-cards-container { display: flex; gap: 20px; flex-wrap: wrap; } 
+      .quick-card {  border: 2px solid #e0e0e0; border-radius: 10px; padding: 1.5rem 12px; cursor: pointer; transition: 0.3s; width: 330px; gap: 1rem; } 
+      .quick-card:hover { transform: translateY(-4px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); } 
+      .quick-card-icon { font-size: 2rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; } 
+      .quick-card-title { margin-top: 1rem; font-size: 1.2rem; font-weight: 600; } 
+      .quick-card-subtitle { margin: 4px 0; font-size: 1rem; color: #666; }
 
     .icon-blue { color: #0d6efd; }
     .icon-green { color: #28a745; }
@@ -59,7 +63,7 @@
       <!-- Add New Card -->
       <div class="quick-card" onclick="navigateTo('/create-ticket')">
         <div class="quick-card-icon icon-blue bg-light">
-          <i class="bi bi-plus"></i>
+          <i class="bi bi-plus fs-1"></i>
         </div>
         <div>
           <p class="quick-card-title">Add New</p>
@@ -70,7 +74,7 @@
       <!-- Tickets Card -->
       <div class="quick-card" onclick="navigateTo('/all-tickets')">
         <div class="quick-card-icon icon-green bg-light">
-          <i class="bi bi-ticket-detailed"></i>
+          <i class="bi bi-ticket-detailed fs-1"></i>
         </div>
         <div>
           <p class="quick-card-title">Tickets</p>
@@ -81,7 +85,7 @@
       <!-- Active Tickets Card -->
       <div class="quick-card" onclick="navigateTo('/active-tickets')">
         <div class="quick-card-icon icon-orange bg-light">
-          <i class="bi bi-clock"></i>
+          <i class="bi bi-clock fs-1"></i>
         </div>
         <div>
           <p class="quick-card-title">Active Tickets</p>
@@ -141,8 +145,8 @@
     const cardData = [
       { label: 'Total Tickets', value: total, icon: 'bi-ticket-detailed', iconColor:'#6c757d', iconBackgroundColor:'#e9ecef' },
       { label: 'Open Tickets', value: openCount, icon: 'bi-folder', iconColor:'#28a745', iconBackgroundColor:'#d4edda' },
-      { label: 'In Progress', value: inProgressCount, icon: 'bi-arrow-repeat', iconColor:'#ffc107', iconBackgroundColor:'#fff8e1' },
-      { label: 'Closed Tickets', value: closedCount, icon: 'bi-x-circle', iconColor:'#dc3545', iconBackgroundColor:'#f8d7da' },
+      { label: 'In Progress', value: inProgressCount, icon: 'bi-arrow-repeat', iconColor:'#ffc107', iconBackgroundColor:"#e9ecef" },
+      { label: 'Closed Tickets', value: closedCount, icon: 'bi-x-circle', iconColor:'#6c757d', iconBackgroundColor:'#fff8e1' },
     ];
 
    

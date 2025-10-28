@@ -51,19 +51,19 @@ cd ticket-app-twig
 2. **Install dependencies**
 
 ```bash
-npm install
+compose  install
 ```
 
 3. **Run development server**
 
 ```bash
-npm start
+php -s localhost:8000
 ```
 
 4. **Open in browser**
 
 ```
-https://tickethubwebapp.vercel.app
+https://ticket-hub-app.onrender.com/
 ```
 
 ---
