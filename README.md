@@ -2,7 +2,7 @@
 ```markdown
 # TicketApp - React Version
 
-Built with React, demonstrating authentication, protected routes, dashboard statistics, and ticket CRUD functionality and uses `localStorage` to simulate backend storage.
+Built with Twig Template in Php, demonstrating authentication, protected routes, dashboard statistics, and ticket CRUD functionality and uses `localStorage` to simulate backend storage.
 
 ---
 
