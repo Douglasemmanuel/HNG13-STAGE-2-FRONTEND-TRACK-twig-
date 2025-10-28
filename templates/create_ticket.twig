@@ -19,7 +19,7 @@
       <button type="button" class="btn btn-primary btn-sm position-absolute start-0 cusor-pointer" onclick="history.back()">
         Back
       </button>
-      <h2 class="mb-0">Edit Ticket</h2>
+      <h2 class="mb-0">Create Ticket</h2>
     </div>
 
     <form id="ticketForm" class="mt-4">
@@ -50,85 +50,101 @@
           <label for="status" class="form-label">Status</label>
           <select id="status" class="form-select">
             <option value="Open" selected>Open</option>
-             <option value="In-progress" selected>In Progress</option>
-              <option value="Closed" selected>Closed</option>
           </select>
           <small id="statusError" class="text-danger d-none"></small>
         </div>
 
         <!-- Submit -->
         <div class="col-12 mt-3">
-          <button type="submit" class="btn btn-primary w-100" style="cursor: pointer;">Edit Ticket</button>
+          <button type="submit" class="btn btn-primary w-100" style="cursor: pointer;">Create Ticket</button>
         </div>
       </div>
     </form>
   </div>
-
+<script src="./js/TicketStore.js"></script>
 <!-- Load the external class -->
-<script src="/js/TicketStore.js"></script>
+<script src="./js/TicketStore.js"></script>
+
 <script>
-  // Get ticket ID from query parameter
-  function getTicketIdFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return parseInt(params.get('id'), 10);
-  }
-
- function getTicketIdFromUrl() {
-  const pathParts = window.location.pathname.split('/');
-  const id = pathParts[pathParts.length - 1]; // last segment
-  return parseInt(id, 10);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
   const ticketStore = new TicketStore();
-  const ticketId = getTicketIdFromUrl();
 
-  if (!ticketId || isNaN(ticketId)) {
-    alert('No ticket ID provided in URL!');
-    return;
-  }
-
-  const ticket = ticketStore.getTicket(ticketId);
-
-  if (!ticket) {
-    alert('Ticket not found!');
-    return;
-  }
-
-  // Populate form fields
-  document.getElementById('title').value = ticket.title;
-  document.getElementById('description').value = ticket.description;
-  document.getElementById('assignee').value = ticket.assignee;
-
-  // Populate status select
-  const statusSelect = document.getElementById('status');
-  statusSelect.innerHTML = `
-    <option value="Open" ${ticket.status === 'Open' ? 'selected' : ''}>Open</option>
-    <option value="In Progress" ${ticket.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-    <option value="Closed" ${ticket.status === 'Closed' ? 'selected' : ''}>Closed</option>
-  `;
-});
-
-
-  // Form submission
   const ticketForm = document.getElementById('ticketForm');
+  const titleInput = document.getElementById('title');
+  const descriptionInput = document.getElementById('description');
+  const assigneeInput = document.getElementById('assignee');
+  const statusInput = document.getElementById('status');
+
+  const titleError = document.getElementById('titleError');
+  const descriptionError = document.getElementById('descriptionError');
+  const assigneeError = document.getElementById('assigneeError');
+  const statusError = document.getElementById('statusError');
+
   ticketForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const ticketStore = new TicketStore();
-    const ticketId = getTicketIdFromUrl();
-
-    ticketStore.updateTicket(ticketId, {
-      title: document.getElementById('title').value,
-      description: document.getElementById('description').value,
-      assignee: document.getElementById('assignee').value,
-      status: document.getElementById('status').value
+    // Reset errors
+    [titleError, descriptionError, assigneeError, statusError].forEach(el => {
+      el.textContent = '';
+      el.classList.add('d-none');
     });
 
-    alert('Ticket updated successfully!');
-    window.location.href = '/dashboard';
+    let valid = true;
+
+    if (!titleInput.value.trim()) {
+      titleError.textContent = 'Title is required';
+      titleError.classList.remove('d-none');
+      valid = false;
+    } else if (titleInput.value.length < 6) {
+      titleError.textContent = 'Title is too short';
+      titleError.classList.remove('d-none');
+      valid = false;
+    }
+
+    if (!descriptionInput.value.trim()) {
+      descriptionError.textContent = 'Description is required';
+      descriptionError.classList.remove('d-none');
+      valid = false;
+    } else if (descriptionInput.value.length < 6) {
+      descriptionError.textContent = 'Description is too short';
+      descriptionError.classList.remove('d-none');
+      valid = false;
+    }
+
+    if (!assigneeInput.value.trim()) {
+      assigneeError.textContent = 'Assignee is required';
+      assigneeError.classList.remove('d-none');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // ✅ Add ticket using external TicketStore class
+    const newTicket = ticketStore.addTicket({
+      title: titleInput.value.trim(),
+      description: descriptionInput.value.trim(),
+      assignee: assigneeInput.value.trim(),
+      status: statusInput.value,
+    });
+
+    console.log('New ticket added:', newTicket);
+
+    // ✅ Show toast (make sure Toastify is included in your HTML)
+    Toastify({
+      text: "Ticket created successfully!",
+      duration: 1500,
+      gravity: "top",
+      position: "right",
+      close: true,
+      backgroundColor: "#0d6efd"
+    }).showToast();
+
+    // Redirect to dashboard after 1s
+    setTimeout(() => {
+      window.location.href = '/dashboard';
+    }, 1000);
   });
 </script>
 
+ 
 </body>
 </html>

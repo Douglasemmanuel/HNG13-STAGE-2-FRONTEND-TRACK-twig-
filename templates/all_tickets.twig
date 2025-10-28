@@ -37,49 +37,75 @@
     </div>
   </div>
 
+ 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ticketStore = new TicketStore();
+    console.log(ticketStore.getTickets());
+  });
+</script>
   <script>
-    // Example tickets array (simulating store)
-    let tickets = [
-      { id: 1, title: 'Login Bug', description: 'Cannot login to dashboard', assignee: 'Alice', status: 'Open' },
-      { id: 2, title: 'UI Fix', description: 'Button overlap issue', assignee: 'Bob', status: 'In Progress' },
-      { id: 3, title: 'Resolved Ticket', description: 'Email not sending', assignee: 'Charlie', status: 'Resolved' },
-      { id: 4, title: 'Closed Ticket', description: 'Typo in footer', assignee: 'Alice', status: 'Closed' }
-    ];
+  
+    // Navigation helper
+    function navigateTo(route) {
+      window.location.href = route;
+    }
+    document.getElementById('backBtn').addEventListener('click', () => {
+  if (document.referrer) {
+    // Goes back if the page has a referrer
+    window.history.back();
+  } else {
+    // Otherwise redirect to a valid page in your project
+    window.location.href = './dashboard'; // relative path
+  }
+});
+  </script>
+ <!-- Load TicketStore definition -->
+<script src="/js/TicketStore.js"></script>
 
+<!-- Your ticket list script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('ticketContainer');
+    const ticketStore = new TicketStore();
 
-    // Render tickets table
+    // Function to render all tickets
     function renderTickets() {
-      if (tickets.length === 0) {
+      const tickets = ticketStore.getTickets(); // Load from localStorage
+      console.log('Tickets from localStorage:', tickets); // Debugging
+
+      if (!tickets || tickets.length === 0) {
         container.innerHTML = '<p class="text-muted">No tickets available.</p>';
         return;
       }
 
+      // Create table
       const table = document.createElement('table');
       table.className = 'table table-striped table-bordered table-hover';
 
       table.innerHTML = `
         <thead class="table-light">
           <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Title</th>
             <th>Description</th>
             <th>Assignee</th>
             <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           ${tickets.map(ticket => `
             <tr>
               <td>${ticket.id}</td>
-              <td>${ticket.title.length > 12 ? ticket.title.slice(0,12) + '...' : ticket.title}</td>
-              <td>${ticket.description.length > 12 ? ticket.description.slice(0,12) + '...' : ticket.description}</td>
+              <td>${ticket.title}</td>
+              <td>${ticket.description}</td>
               <td>${ticket.assignee}</td>
               <td>${ticket.status}</td>
-              <td><button class="btn btn-warning btn-sm" onclick="editTicket(${ticket.id})">Edit</button></td>
-              <td><button class="btn btn-danger btn-sm" onclick="deleteTicket(${ticket.id})">Delete</button></td>
+              <td>
+                <button class="btn btn-sm btn-info" onclick="viewTicket(${ticket.id})">View</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteTicket(${ticket.id})">Delete</button>
+              </td>
             </tr>
           `).join('')}
         </tbody>
@@ -89,30 +115,39 @@
       container.appendChild(table);
     }
 
-    // Edit ticket function
-    function editTicket(id) {
-      // Navigate to edit page (simulated)
-      alert('Navigate to edit page for ticket ID: ' + id);
-      // window.location.href = `/edit-ticket/${id}.html`; // Uncomment if you have edit pages
-    }
+    // View a single ticket using getTicket()
+    window.viewTicket = function(id) {
+  const ticket = ticketStore.getTicket(id);
+  if (!ticket) {
+    alert('Ticket not found!');
+    return;
+  }
 
-    // Delete ticket function
-    function deleteTicket(id) {
-      const confirmed = window.confirm('Are you sure you want to delete this ticket?');
-      if (!confirmed) return;
+  // Redirect to edit-ticket page and pass ID in the URL
+  window.location.href = `/edit-ticket/${ticket.id}`;
+};
 
-      tickets = tickets.filter(ticket => ticket.id !== id);
-      renderTickets();
-      console.log('Deleted ticket with id:', id);
-    }
+    // Delete a ticket
+   window.deleteTicket = function(id) {
+  const ticket = ticketStore.getTicket(id); // Get ticket details
+  if (!ticket) {
+    alert('Ticket not found!');
+    return;
+  }
 
-    // Back button
-    document.getElementById('backBtn').addEventListener('click', () => {
-      window.history.back();
-    });
+  const confirmed = confirm(`Are you sure you want to delete the ticket titled "${ticket.title}"?`);
+  if (confirmed) {
+    ticketStore.deleteTicket(id);
+    renderTickets();
+  }
+};
+
 
     // Initial render
     renderTickets();
-  </script>
+  });
+</script>
+
+
 </body>
 </html>

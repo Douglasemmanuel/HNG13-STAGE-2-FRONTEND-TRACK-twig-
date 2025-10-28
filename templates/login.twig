@@ -10,6 +10,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <style>
     .image-style {
       height: 32px;
@@ -38,7 +40,7 @@
   <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm border-bottom py-3 fixed-top">
     <div class="container d-flex justify-content-between align-items-center">
       <!-- LOGO -->
-      <a href="index.html" class="navbar-brand d-flex align-items-center" style="text-decoration: none;">
+      <a href="#" class="navbar-brand d-flex align-items-center" style="text-decoration: none;" onclick="moveTo('/')">
         <img src="images/logo2.jpeg" alt="Ticket Icon" class="image-style" />
         <span class="fw-medium text-dark">TicketHub</span>
       </a>
@@ -59,8 +61,8 @@
 
       <!-- DESKTOP BUTTONS -->
       <div class="d-none d-md-flex align-items-center gap-2">
-        <button class="btn btn-outline-primary px-4 py-2 fw-semibold" onclick="navigateTo('login.html')">Login</button>
-        <button class="btn btn-primary px-4 py-2 fw-semibold" onclick="navigateTo('register.html')">Get Started</button>
+        <button class="btn btn-outline-primary px-4 py-2 fw-semibold" onclick="navigateTo('/login')">Login</button>
+        <button class="btn btn-primary px-4 py-2 fw-semibold" onclick="navigateTo('/register')">Get Started</button>
       </div>
     </div>
   </nav>
@@ -74,8 +76,8 @@
       <li><a href="#" class="text-dark text-decoration-none link-primary px-3 py-2 rounded d-block">More</a></li>
     </ul>
     <div class="d-flex flex-column gap-2">
-      <button class="btn btn-outline-primary fw-semibold w-100">Login</button>
-      <button class="btn btn-primary fw-semibold w-100">Get Started</button>
+      <button class="btn btn-outline-primary fw-semibold w-100"  onclick="navigateTo('/login')">Login</button>
+      <button class="btn btn-primary fw-semibold w-100"  onclick="navigateTo('/register')">Get Started</button>
     </div>
   </div>
 
@@ -97,12 +99,17 @@
               <input id="password" type="password" class="form-control" placeholder="Enter password" />
               <small id="passwordError" class="text-danger d-none"></small>
             </div>
-            <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+            <button type="submit" class="btn btn-primary w-100 py-2" >Login</button>
           </form>
           <p class="text-center mt-3">
-            Don't have an account?
-            <a href="register.html" class="fw-bold text-decoration-none">Sign Up</a>
-          </p>
+  Don't have an account?
+  <a href="#" 
+     class="fw-bold text-decoration-none"  
+     onclick="event.preventDefault(); navigateTo('/register')">
+    Sign Up
+  </a>
+</p>
+
         </div>
       </div>
     </div>
@@ -157,6 +164,18 @@
         menuIcon.textContent = '☰';
       }
     });
+     function moveTo(route) {
+    // Check if the user is logged in
+    const userSession = localStorage.getItem('ticketapp_session');
+
+    if (userSession) {
+      // If logged in, go to dashboard
+      window.location.href = '/dashboard';
+    } else {
+      // Otherwise, go to the route passed
+      window.location.href = route;
+    }
+  }
 </script>
 <script>
   // Example: create a dummy user for testing
@@ -166,7 +185,9 @@
     ];
     localStorage.setItem('users', JSON.stringify(dummyUsers));
   }
-
+   function navigateTo(route, params = {}) {
+    window.location.href = route;
+}
   const loginForm = document.getElementById('loginForm');
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');
@@ -224,8 +245,14 @@
 
     // Login successful
     localStorage.setItem('ticketapp_session', JSON.stringify(user));
-    alert('Login successful!');
-    window.location.href = '/dashboard.html'; // Redirect after login
+    Toastify({
+        text: "Registration successful!",
+        duration: 2000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#28a745"
+      }).showToast();
+    window.location.href = '/dashboard' ; // Redirect after login
   });
 </script>
 
@@ -233,3 +260,4 @@
 </body>
 
 </html>
+

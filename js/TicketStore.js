@@ -1,21 +1,22 @@
-// TicketStore.js
-
+// ./js/TicketStore.js
 class TicketStore {
   constructor() {
-    // Load tickets from localStorage or initialize empty array
     const storedTickets = localStorage.getItem('tickets');
     this.tickets = storedTickets ? JSON.parse(storedTickets) : [];
   }
 
-  // Save tickets to localStorage
   _save() {
     localStorage.setItem('tickets', JSON.stringify(this.tickets));
   }
 
-  // Add a new ticket
+  _load() {
+    const storedTickets = localStorage.getItem('tickets');
+    this.tickets = storedTickets ? JSON.parse(storedTickets) : [];
+  }
+
   addTicket({ title, description, assignee, status = 'Open' }) {
     const newTicket = {
-      id: Date.now(), // unique id
+      id: Date.now(),
       title,
       description,
       assignee,
@@ -26,13 +27,11 @@ class TicketStore {
     return newTicket;
   }
 
-  // Delete a ticket by id
   deleteTicket(id) {
     this.tickets = this.tickets.filter(t => t.id !== id);
     this._save();
   }
 
-  // Update a ticket by id
   updateTicket(id, { title, description, assignee, status }) {
     const index = this.tickets.findIndex(t => t.id === id);
     if (index !== -1) {
@@ -41,32 +40,17 @@ class TicketStore {
     }
   }
 
-  // Get a ticket by id
   getTicket(id) {
+    this._load();
     return this.tickets.find(t => t.id === id);
   }
 
-  // Get all tickets
   getTickets() {
+    this._load();
+    console.log('Tickets loaded:', this.tickets);
     return this.tickets;
   }
 }
 
-// Example usage:
-// const ticketStore = new TicketStore();
-
-// // Add a ticket
-// ticketStore.addTicket({
-//   title: "Sample Ticket",
-//   description: "This is a sample ticket",
-//   assignee: "John Doe"
-// });
-
-// // Get all tickets
-// console.log(ticketStore.getTickets());
-
-// Delete a ticket
-// ticketStore.deleteTicket(ticketId);
-
-// Update a ticket
-// ticketStore.updateTicket(ticketId, { title: "Updated", description: "Updated description", assignee: "Jane Doe", status: "Closed" });
+// 👇 Make it available globally
+window.TicketStore = TicketStore;

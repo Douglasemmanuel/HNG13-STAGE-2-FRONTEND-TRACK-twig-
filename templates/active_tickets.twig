@@ -41,58 +41,107 @@
     </div>
   </div>
 
+  <!-- Import your TicketStore -->
+<script src="/js/TicketStore.js"></script>
   <script>
-    // Example data (simulate store)
-    const tickets = [
-      { id: 1, title: 'Login Bug', description: 'Cannot login to dashboard', assignee: 'Alice', status: 'Open' },
-      { id: 2, title: 'UI Fix', description: 'Button overlap issue', assignee: 'Bob', status: 'In Progress' },
-      { id: 3, title: 'Resolved Ticket', description: 'Email not sending', assignee: 'Charlie', status: 'Resolved' },
-      { id: 4, title: 'Closed Ticket', description: 'Typo in footer', assignee: 'Alice', status: 'Closed' }
-    ];
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (document.referrer) {
+      window.history.back();
+    } else {
+      window.location.href = './dashboard';
+    }
+  });
 
-    // Filter active tickets
+  
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('ticketContainer');
+  const ticketStore = new TicketStore();
+
+  // Function to render all active tickets (status !== 'Closed')
+  function renderTickets() {
+    const tickets = ticketStore.getTickets(); // Load from localStorage
+    console.log(tickets)
+    // Filter out closed tickets
     const activeTickets = tickets.filter(ticket => ticket.status !== 'Closed');
 
-    const container = document.getElementById('ticketContainer');
+    console.log('Active tickets:', activeTickets); // Debugging
 
-    if (activeTickets.length === 0) {
+    if (!activeTickets || activeTickets.length === 0) {
       container.innerHTML = '<p class="text-muted">No active tickets available.</p>';
-    } else {
-      const table = document.createElement('table');
-      table.className = 'table table-striped table-bordered table-hover';
-
-      table.innerHTML = `
-        <thead class="table-light">
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Assignee</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${activeTickets.map(ticket => `
-            <tr>
-              <td>${ticket.id}</td>
-              <td>${ticket.title.length > 12 ? ticket.title.slice(0,12) + '...' : ticket.title}</td>
-              <td>${ticket.description.length > 12 ? ticket.description.slice(0,12) + '...' : ticket.description}</td>
-              <td>${ticket.assignee}</td>
-               <td>${ticket.status}</td>
-              
-            </tr>
-          `).join('')}
-        </tbody>
-      `;
-
-      container.innerHTML = '';
-      container.appendChild(table);
+      return;
     }
 
-    // Back button handler
-    document.getElementById('backBtn').addEventListener('click', () => {
-      window.history.back();
-    });
-  </script>
+    // Create table
+    const table = document.createElement('table');
+    table.className = 'table table-striped table-bordered table-hover';
+
+    table.innerHTML = `
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Assignee</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${activeTickets.map(ticket => `
+          <tr>
+            <td>${ticket.id}</td>
+            <td>${ticket.title}</td>
+            <td>${ticket.description}</td>
+            <td>${ticket.assignee}</td>
+            <td>${ticket.status}</td>
+           
+          </tr>
+        `).join('')}
+      </tbody>
+    `;
+
+    container.innerHTML = '';
+    container.appendChild(table);
+  }
+
+  // View a single ticket
+  window.viewTicket = function(id) {
+    const ticket = ticketStore.getTicket(id);
+    if (!ticket) {
+      alert('Ticket not found!');
+      return;
+    }
+
+    alert(
+      `🎟️ Ticket Details\n\n` +
+      `ID: ${ticket.id}\n` +
+      `Title: ${ticket.title}\n` +
+      `Description: ${ticket.description}\n` +
+      `Assignee: ${ticket.assignee}\n` +
+      `Status: ${ticket.status}`
+    );
+  };
+
+  // Delete a ticket
+  window.deleteTicket = function(id) {
+    const ticket = ticketStore.getTicket(id); // Get ticket details
+    if (!ticket) {
+      alert('Ticket not found!');
+      return;
+    }
+
+    const confirmed = confirm(`Are you sure you want to delete the ticket titled "${ticket.title}"?`);
+    if (confirmed) {
+      ticketStore.deleteTicket(id);
+      renderTickets(); // Re-render after deletion
+    }
+  };
+
+  // Initial render
+  renderTickets();
+});
+</script>
+
 </body>
 </html>
