@@ -3,12 +3,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
 $twig = new \Twig\Environment($loader, [
-    'cache' => __DIR__ . '/../cache/twig',
+    'cache' => '/tmp/twig_cache',  // Writable cache directory
     'auto_reload' => true,
 ]);
 
 function route($path, $twig) {
-    // Define routes in an associative array
     $routes = [
         '/' => ['template' => 'landingpage.twig', 'title' => 'Landing Page - Twig Starter Template'],
         '/login' => ['template' => 'login.twig', 'title' => 'Login Page - Twig Starter Template'],
@@ -19,12 +18,12 @@ function route($path, $twig) {
         '/create-ticket' => ['template' => 'create_ticket.twig', 'title' => 'Create Ticket - Twig Starter Template'],
     ];
 
-    // Handle /edit-ticket/{id} dynamically
+    // Dynamic route for edit-ticket/{id}
     if (preg_match('#^/edit-ticket/(\d+)$#', $path, $matches)) {
         $id = $matches[1];
         echo $twig->render('edit_ticket.twig', [
             'title' => 'Edit Ticket - Twig Starter Template',
-            'ticket_id' => $id,  // Pass the ID to Twig
+            'ticket_id' => $id,
         ]);
         return;
     }
@@ -36,10 +35,8 @@ function route($path, $twig) {
     }
 }
 
-// Get the current path
+// Get current path
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Call the router
+// Call router
 route($path, $twig);
-?>
-
